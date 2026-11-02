@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Передний план адаптивной иконки FinVault.
+  Размер: 108×108dp (безопасная зона 72×72dp, центр в 54,54).
+  Дизайн: щит-хранилище с буквами "FV" и монетой снизу.
+  Цвета: белый (#FFFFFF) и голубой акцент (#38BDF8).
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- ШИТ (Vault Shield) — контур -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="
+          M54,18
+          C54,18 30,26 30,42
+          L30,58
+          C30,70 40,78 54,84
+          C68,78 78,70 78,58
+          L78,42
+          C78,26 54,18 54,18 Z" />
+
+    <!-- ШИТ — внутренняя заливка (чуть темнее, создаёт глубину) -->
+    <path
+        android:fillColor="#1D4ED8"
+        android:pathData="
+          M54,22
+          C54,22 33,29.5 33,43
+          L33,57.5
+          C33,68 42,75 54,80.5
+          C66,75 75,68 75,57.5
+          L75,43
+          C75,29.5 54,22 54,22 Z" />
+
+    <!-- Буква "F" — белая -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="
+          M41,40 L41,62
+          L44.5,62 L44.5,53
+          L52,53 L52,50
+          L44.5,50 L44.5,43
+          L53,43 L53,40 Z" />
+
+    <!-- Буква "V" — голубой акцент -->
+    <path
+        android:fillColor="#38BDF8"
+        android:pathData="
+          M56,40 L62,57 L68,40
+          L71.5,40 L63.5,63
+          L60.5,63 L52.5,40 Z" />
+
+    <!-- Монета (символ богатства) — жёлто-золотая -->
+    <path
+        android:fillColor="#F59E0B"
+        android:pathData="M54,86 m-5,0 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0" />
+
+    <!-- Знак "₸" внутри монеты -->
+    <path
+        android:fillColor="#0B132B"
+        android:strokeWidth="0.5"
+        android:pathData="
+          M51.5,85 L56.5,85
+          M51.5,86.5 L56.5,86.5
+          M54,84 L54,88.5" />
+
+</vector>

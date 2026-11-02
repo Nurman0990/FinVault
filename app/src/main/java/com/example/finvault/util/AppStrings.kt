@@ -1,0 +1,553 @@
+package com.example.finvault.util
+
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import java.util.Locale
+
+/**
+ * Словарь локализации приложения FinVault для мгновенного и надежного
+ * переключения языков (Русский, Қазақша, English, Системный) без перезапуска.
+ */
+data class AppStrings(
+    // Навигация
+    val tabTransactions: String,
+    val tabRates: String,
+    val tabAnalytics: String,
+    val tabSettings: String,
+
+    // Главный экран (Транзакции)
+    val appTitle: String,
+    val totalBalance: String,
+    val searchTransactionsPlaceholder: String,
+    val filterAll: String,
+    val filterToday: String,
+    val filterWeek: String,
+    val filterMonth: String,
+    val filterOnlyExpenses: String,
+    val filterOnlyIncomes: String,
+    val emptyTransactionsPrompt: String,
+    val emptyFilteredPrompt: String,
+
+    // Диалог добавления операции
+    val newTransactionTitle: String,
+    val expense: String,
+    val income: String,
+    val amountLabel: String,
+    val currencyLabel: String,
+    val otherCurrency: String,
+    val categoryLabel: String,
+    val customCategoryPlaceholder: String,
+    val addBtn: String,
+    val cancelBtn: String,
+    val defaultExpenseCategories: List<String>,
+    val defaultIncomeCategories: List<String>,
+
+    // Блокировка и биометрия
+    val appLockedTitle: String,
+    val appLockedSubtitle: String,
+    val unlockBtn: String,
+    val biometricPromptTitle: String,
+    val biometricPromptSubtitle: String,
+
+    // Курсы и Калькулятор
+    val ratesTitle: String,
+    val ratesUpdated: String,
+    val refreshTooltip: String,
+    val quotesTab: String,
+    val calculatorTab: String,
+    val searchCurrencyPlaceholder: String,
+    val filterFiat: String,
+    val filterCrypto: String,
+    val converterTitle: String,
+    val converterIHave: String,
+    val converterIGet: String,
+    val loadRatesFirstPrompt: String,
+    val forOneUnit: String,
+    val selectCurrencyTitle: String,
+    val selectAllCurrencies: String,
+
+    // Аналитика и лимиты
+    val analyticsTitle: String,
+    val exportCsvBtn: String,
+    val monthlyLimitTitle: String,
+    val setLimitBtn: String,
+    val changeLimitBtn: String,
+    val spentText: String,
+    val limitText: String,
+    val limitExceededAlert: String,
+    val limitNotSetDesc: String,
+    val expenseStructureTitle: String,
+    val totalExpensesLabel: String,
+    val noExpensesToDisplay: String,
+    val categoriesTitle: String,
+    val saveBudgetDialogTitle: String,
+    val limitInputLabel: String,
+    val saveBtn: String,
+
+    // Настройки
+    val settingsTitle: String,
+    val appearanceSection: String,
+    val themeTitle: String,
+    val themeSystem: String,
+    val themeLight: String,
+    val themeDark: String,
+
+    val languageTitle: String,
+    val languageDialogTitle: String,
+
+    val currencySectionTitle: String,
+    val currencySectionDesc: String,
+    val currencyDialogTitle: String,
+
+    val securitySection: String,
+    val biometricsToggle: String,
+    val biometricsDesc: String,
+    val timeoutTitle: String,
+    val timeoutDialogTitle: String,
+    val timeoutInstant: String,
+    val timeout1Min: String,
+    val timeout5Min: String,
+    val timeout15Min: String,
+    val showBalanceOnLaunchTitle: String,
+    val showBalanceOnLaunchDesc: String,
+
+    val recurringSection: String,
+    val recurringDesc: String,
+    val noRecurringPrompt: String,
+    val newRecurringTitle: String,
+    val intervalDaysPrompt: String,
+    val customDaysLabel: String,
+    val daysUnit: String,
+    val nextDuePrefix: String,
+    val autoPaymentSuffix: String,
+
+    val backupSection: String,
+    val autoBackupToggle: String,
+    val autoBackupDesc: String,
+    val lastBackupPrefix: String,
+    val createBackupBtn: String,
+    val restoreBackupBtn: String,
+    val backupCreatedSuccess: String,
+    val backupRestoreSuccess: String,
+    val noBackupsFound: String,
+
+    val dataSection: String,
+    val clearDataTitle: String,
+    val clearDataDesc: String,
+    val clearDataConfirmTitle: String,
+    val clearDataConfirmMessage: String,
+    val clearDataConfirmBtn: String,
+
+    val aboutSection: String,
+    val appVersion: String,
+    val aboutSecurityInfo: String
+)
+
+val RussianStrings = AppStrings(
+    tabTransactions = "Операции",
+    tabRates = "Курсы",
+    tabAnalytics = "Аналитика",
+    tabSettings = "Настройки",
+
+    appTitle = "FinVault",
+    totalBalance = "Общий баланс",
+    searchTransactionsPlaceholder = "Поиск (категория, сумма)...",
+    filterAll = "Все время",
+    filterToday = "Сегодня",
+    filterWeek = "Неделя",
+    filterMonth = "Месяц",
+    filterOnlyExpenses = "Траты",
+    filterOnlyIncomes = "Доходы",
+    emptyTransactionsPrompt = "Нет операций. Нажмите +, чтобы добавить первую!",
+    emptyFilteredPrompt = "Ничего не найдено по фильтрам",
+
+    newTransactionTitle = "Новая операция",
+    expense = "Расход",
+    income = "Доход",
+    amountLabel = "Сумма",
+    currencyLabel = "Валюта",
+    otherCurrency = "Ещё...",
+    categoryLabel = "Категория:",
+    customCategoryPlaceholder = "Название или своя категория",
+    addBtn = "Добавить",
+    cancelBtn = "Отмена",
+    defaultExpenseCategories = listOf("Продукты", "Транспорт", "Кафе", "Покупки", "Жильё", "Здоровье", "Развлечения", "Связь"),
+    defaultIncomeCategories = listOf("Зарплата", "Фриланс", "Перевод", "Инвестиции", "Подарок", "Кэшбэк"),
+
+    appLockedTitle = "Приложение заблокировано",
+    appLockedSubtitle = "FinVault надёжно защищён",
+    unlockBtn = "Разблокировать",
+    biometricPromptTitle = "Вход в FinVault",
+    biometricPromptSubtitle = "Приложите палец или введите PIN-код",
+
+    ratesTitle = "Курсы валют и крипты",
+    ratesUpdated = "Обновлено",
+    refreshTooltip = "Обновить курсы",
+    quotesTab = "Котировки",
+    calculatorTab = "Калькулятор",
+    searchCurrencyPlaceholder = "Поиск валюты (USD, BTC, KZT...)",
+    filterFiat = "Фиат",
+    filterCrypto = "Крипта",
+    converterTitle = "Быстрая конвертация",
+    converterIHave = "У меня есть:",
+    converterIGet = "Я получу:",
+    loadRatesFirstPrompt = "Сначала загрузите курсы (нажмите 🔄 сверху)",
+    forOneUnit = "за 1",
+    selectCurrencyTitle = "Выберите валюту",
+    selectAllCurrencies = "Выбрать все",
+
+    analyticsTitle = "Аналитика и Лимиты",
+    exportCsvBtn = "CSV",
+    monthlyLimitTitle = "Месячный лимит расходов",
+    setLimitBtn = "Задать",
+    changeLimitBtn = "Изменить",
+    spentText = "Потрачено",
+    limitText = "Лимит",
+    limitExceededAlert = "Внимание: лимит превышен на",
+    limitNotSetDesc = "Лимит не установлен. Нажмите «Задать», чтобы контролировать траты.",
+    expenseStructureTitle = "Структура расходов",
+    totalExpensesLabel = "Всего трат",
+    noExpensesToDisplay = "Нет расходов для отображения",
+    categoriesTitle = "Расходы по категориям",
+    saveBudgetDialogTitle = "Месячный лимит расходов",
+    limitInputLabel = "Лимит суммы",
+    saveBtn = "Сохранить",
+
+    settingsTitle = "Настройки и Кастомизация",
+    appearanceSection = "Внешний вид и Валюта",
+    themeTitle = "Тема оформления",
+    themeSystem = "Системная",
+    themeLight = "Светлая ☀️",
+    themeDark = "Тёмная 🌙",
+
+    languageTitle = "Язык интерфейса",
+    languageDialogTitle = "Выберите язык приложения",
+
+    currencySectionTitle = "Основная валюта",
+    currencySectionDesc = "Для баланса, лимита расходов и подписок",
+    currencyDialogTitle = "Выберите основную валюту",
+
+    securitySection = "Безопасность и Вход",
+    biometricsToggle = "Биометрия и PIN",
+    biometricsDesc = "Запрашивать отпечаток пальца при входе",
+    timeoutTitle = "Тайм-аут автоблокировки",
+    timeoutDialogTitle = "Время до блокировки",
+    timeoutInstant = "Мгновенно",
+    timeout1Min = "Через 1 минуту",
+    timeout5Min = "Через 5 минут",
+    timeout15Min = "Через 15 минут",
+    showBalanceOnLaunchTitle = "Оставлять баланс открытым при входе",
+    showBalanceOnLaunchDesc = "Глазик открыт по умолчанию (баланс виден)",
+
+    recurringSection = "Регулярные платежи",
+    recurringDesc = "Автоматические расходы (подписки, аренда, зарплата)",
+    noRecurringPrompt = "Нет активных подписок. Нажмите +, чтобы добавить регулярный платеж.",
+    newRecurringTitle = "Новый регулярный платеж",
+    intervalDaysPrompt = "Интервал повторения",
+    customDaysLabel = "Свой интервал (дней)",
+    daysUnit = "дн.",
+    nextDuePrefix = "След:",
+    autoPaymentSuffix = "(Автоплатеж)",
+
+    backupSection = "Резервное копирование (AES-256)",
+    autoBackupToggle = "Автоматический бэкап",
+    autoBackupDesc = "Создавать зашифрованную копию раз в 24 часа",
+    lastBackupPrefix = "Последний бэкап:",
+    createBackupBtn = "Создать",
+    restoreBackupBtn = "Восстановить",
+    backupCreatedSuccess = "Бэкап успешно создан",
+    backupRestoreSuccess = "Успешно восстановлено операций:",
+    noBackupsFound = "Файлов бэкапа не найдено",
+
+    dataSection = "Управление данными",
+    clearDataTitle = "Очистить все данные",
+    clearDataDesc = "Удалить все транзакции и сбросить баланс",
+    clearDataConfirmTitle = "Удалить все транзакции?",
+    clearDataConfirmMessage = "Это действие безвозвратно удалит историю операций. Рекомендуем предварительно создать бэкап.",
+    clearDataConfirmBtn = "Очистить",
+
+    aboutSection = "О приложении",
+    appVersion = "Версия 1.3.0 Pro",
+    aboutSecurityInfo = "FinVault хранит все данные исключительно локально на вашем устройстве с шифрованием AES-256 и биометрической защитой."
+)
+
+val KazakhStrings = AppStrings(
+    tabTransactions = "Операциялар",
+    tabRates = "Бағамдар",
+    tabAnalytics = "Аналитика",
+    tabSettings = "Баптаулар",
+
+    appTitle = "FinVault",
+    totalBalance = "Жалпы баланс",
+    searchTransactionsPlaceholder = "Іздеу (санат, сомасы)...",
+    filterAll = "Барлық уақыт",
+    filterToday = "Бүгін",
+    filterWeek = "Апта",
+    filterMonth = "Ай",
+    filterOnlyExpenses = "Шығыстар",
+    filterOnlyIncomes = "Кірістер",
+    emptyTransactionsPrompt = "Операциялар жоқ. Алғашқысын қосу үшін + басыңыз!",
+    emptyFilteredPrompt = "Сүзгі бойынша ештеңе табылмады",
+
+    newTransactionTitle = "Жаңа операция",
+    expense = "Шығыс",
+    income = "Кіріс",
+    amountLabel = "Сомасы",
+    currencyLabel = "Валюта",
+    otherCurrency = "Басқа...",
+    categoryLabel = "Санат:",
+    customCategoryPlaceholder = "Атауы немесе өз санатыңыз",
+    addBtn = "Қосу",
+    cancelBtn = "Бас тарту",
+    defaultExpenseCategories = listOf("Азық-түлік", "Көлік", "Дәмхана", "Сатып алу", "Тұрғын үй", "Денсаулық", "Ойын-сауық", "Байланыс"),
+    defaultIncomeCategories = listOf("Жалақы", "Фриланс", "Аударым", "Инвестиция", "Сыйлық", "Кэшбэк"),
+
+    appLockedTitle = "Қосымша бұғатталған",
+    appLockedSubtitle = "FinVault сенімді қорғалған",
+    unlockBtn = "Құлыпты ашу",
+    biometricPromptTitle = "FinVault кіру",
+    biometricPromptSubtitle = "Саусағыңызды басыңыз немесе PIN-код енгізіңіз",
+
+    ratesTitle = "Валюта және крипто бағамдары",
+    ratesUpdated = "Жаңартылды",
+    refreshTooltip = "Бағамдарды жаңарту",
+    quotesTab = "Бағамдар",
+    calculatorTab = "Калькулятор",
+    searchCurrencyPlaceholder = "Валютаны іздеу (USD, BTC, KZT...)",
+    filterFiat = "Фиат",
+    filterCrypto = "Крипто",
+    converterTitle = "Жылдам конвертация",
+    converterIHave = "Менде бар:",
+    converterIGet = "Мен аламын:",
+    loadRatesFirstPrompt = "Алдымен бағамдарды жүктеңіз (жоғарыдағы 🔄 басыңыз)",
+    forOneUnit = "1 үшін",
+    selectCurrencyTitle = "Валютаны таңдаңыз",
+    selectAllCurrencies = "Барлығын таңдау",
+
+    analyticsTitle = "Аналитика және Лимиттер",
+    exportCsvBtn = "CSV",
+    monthlyLimitTitle = "Айлық шығыс лимиті",
+    setLimitBtn = "Орнату",
+    changeLimitBtn = "Өзгерту",
+    spentText = "Жұмсалды",
+    limitText = "Лимит",
+    limitExceededAlert = "Назар аударыңыз: лимит асып кетті",
+    limitNotSetDesc = "Лимит орнатылмаған. Шығындарды бақылау үшін «Орнату» басыңыз.",
+    expenseStructureTitle = "Шығыстар құрылымы",
+    totalExpensesLabel = "Барлық шығыс",
+    noExpensesToDisplay = "Көрсететін шығыстар жоқ",
+    categoriesTitle = "Санаттар бойынша шығыстар",
+    saveBudgetDialogTitle = "Айлық шығыс лимиті",
+    limitInputLabel = "Лимит сомасы",
+    saveBtn = "Сақтау",
+
+    settingsTitle = "Баптаулар және Кастомизация",
+    appearanceSection = "Сыртқы түрі және Валюта",
+    themeTitle = "Интерфейс тақырыбы",
+    themeSystem = "Жүйелік",
+    themeLight = "Жарық ☀️",
+    themeDark = "Қараңғы 🌙",
+
+    languageTitle = "Интерфейс тілі",
+    languageDialogTitle = "Қосымша тілін таңдаңыз",
+
+    currencySectionTitle = "Негізгі валюта",
+    currencySectionDesc = "Баланс, лимит және төлемдер үшін",
+    currencyDialogTitle = "Негізгі валютаны таңдаңыз",
+
+    securitySection = "Қауіпсіздік және Кіру",
+    biometricsToggle = "Биометрия және PIN",
+    biometricsDesc = "Кіру кезінде саусақ ізін сұрау",
+    timeoutTitle = "Автобұғаттау тайм-ауты",
+    timeoutDialogTitle = "Бұғаттауға дейінгі уақыт",
+    timeoutInstant = "Лезде",
+    timeout1Min = "1 минуттан кейін",
+    timeout5Min = "5 минуттан кейін",
+    timeout15Min = "15 минуттан кейін",
+    showBalanceOnLaunchTitle = "Кіргенде балансты ашық қалдыру",
+    showBalanceOnLaunchDesc = "Әдепкіде көз ашық тұрады (баланс көрінеді)",
+
+    recurringSection = "Тұрақты төлемдер",
+    recurringDesc = "Автоматты шығыстар (жазылымдар, жалға алу, жалақы)",
+    noRecurringPrompt = "Белсенді жазылымдар жоқ. Тұрақты төлем қосу үшін + басыңыз.",
+    newRecurringTitle = "Жаңа тұрақты төлем",
+    intervalDaysPrompt = "Қайталану аралығы",
+    customDaysLabel = "Өз аралығыңыз (күн)",
+    daysUnit = "күн",
+    nextDuePrefix = "Келесі:",
+    autoPaymentSuffix = "(Автотөлем)",
+
+    backupSection = "Сақтық көшірме (AES-256)",
+    autoBackupToggle = "Автоматты сақтық көшірме",
+    autoBackupDesc = "Әр 24 сағат сайын шифрланған көшірме жасау",
+    lastBackupPrefix = "Соңғы көшірме:",
+    createBackupBtn = "Жасау",
+    restoreBackupBtn = "Қалпына келтіру",
+    backupCreatedSuccess = "Сақтық көшірме жасалды",
+    backupRestoreSuccess = "Қалпына келтірілген операциялар саны:",
+    noBackupsFound = "Сақтық көшірме файлдары табылмады",
+
+    dataSection = "Деректерді басқару",
+    clearDataTitle = "Барлық деректерді тазалау",
+    clearDataDesc = "Барлық операцияларды жойып, балансты нөлдеу",
+    clearDataConfirmTitle = "Барлық операцияларды жою керек пе?",
+    clearDataConfirmMessage = "Бұл әрекет барлық тарихты біржола жояды. Алдын ала сақтық көшірме жасауды ұсынамыз.",
+    clearDataConfirmBtn = "Тазалау",
+
+    aboutSection = "Қосымша туралы",
+    appVersion = "Нұсқа 1.3.0 Pro",
+    aboutSecurityInfo = "FinVault барлық деректерді тек құрылғыңызда AES-256 шифрлауымен оффлайн сақтайды."
+)
+
+val EnglishStrings = AppStrings(
+    tabTransactions = "Transactions",
+    tabRates = "Rates",
+    tabAnalytics = "Analytics",
+    tabSettings = "Settings",
+
+    appTitle = "FinVault",
+    totalBalance = "Total Balance",
+    searchTransactionsPlaceholder = "Search (category, amount)...",
+    filterAll = "All Time",
+    filterToday = "Today",
+    filterWeek = "Week",
+    filterMonth = "Month",
+    filterOnlyExpenses = "Expenses",
+    filterOnlyIncomes = "Income",
+    emptyTransactionsPrompt = "No transactions yet. Tap + to add the first one!",
+    emptyFilteredPrompt = "No transactions match your filters",
+
+    newTransactionTitle = "New Transaction",
+    expense = "Expense",
+    income = "Income",
+    amountLabel = "Amount",
+    currencyLabel = "Currency",
+    otherCurrency = "Other...",
+    categoryLabel = "Category:",
+    customCategoryPlaceholder = "Name or custom category",
+    addBtn = "Add",
+    cancelBtn = "Cancel",
+    defaultExpenseCategories = listOf("Groceries", "Transport", "Cafe", "Shopping", "Housing", "Health", "Entertainment", "Services"),
+    defaultIncomeCategories = listOf("Salary", "Freelance", "Transfer", "Investments", "Gift", "Cashback"),
+
+    appLockedTitle = "App Locked",
+    appLockedSubtitle = "FinVault is securely locked",
+    unlockBtn = "Unlock",
+    biometricPromptTitle = "Sign in to FinVault",
+    biometricPromptSubtitle = "Use biometric or device credentials",
+
+    ratesTitle = "Currency & Crypto Rates",
+    ratesUpdated = "Updated",
+    refreshTooltip = "Refresh rates",
+    quotesTab = "Quotes",
+    calculatorTab = "Calculator",
+    searchCurrencyPlaceholder = "Search currency (USD, BTC, KZT...)",
+    filterFiat = "Fiat",
+    filterCrypto = "Crypto",
+    converterTitle = "Quick Converter",
+    converterIHave = "I have:",
+    converterIGet = "I get:",
+    loadRatesFirstPrompt = "Please load rates first (tap 🔄 at top)",
+    forOneUnit = "for 1",
+    selectCurrencyTitle = "Select Currency",
+    selectAllCurrencies = "Select All",
+
+    analyticsTitle = "Analytics & Limits",
+    exportCsvBtn = "CSV",
+    monthlyLimitTitle = "Monthly Spending Budget",
+    setLimitBtn = "Set",
+    changeLimitBtn = "Edit",
+    spentText = "Spent",
+    limitText = "Limit",
+    limitExceededAlert = "Alert: budget exceeded by",
+    limitNotSetDesc = "Budget limit not set. Tap «Set» to control your spending.",
+    expenseStructureTitle = "Spending Breakdown",
+    totalExpensesLabel = "Total spent",
+    noExpensesToDisplay = "No expenses recorded yet",
+    categoriesTitle = "Expenses by Category",
+    saveBudgetDialogTitle = "Monthly Spending Budget",
+    limitInputLabel = "Limit amount",
+    saveBtn = "Save",
+
+    settingsTitle = "Settings & Customization",
+    appearanceSection = "Appearance & Currency",
+    themeTitle = "Theme Mode",
+    themeSystem = "System",
+    themeLight = "Light ☀️",
+    themeDark = "Dark 🌙",
+
+    languageTitle = "Language",
+    languageDialogTitle = "Select Application Language",
+
+    currencySectionTitle = "Main Currency",
+    currencySectionDesc = "Used for balance, spending budget, and subscriptions",
+    currencyDialogTitle = "Select Main Currency",
+
+    securitySection = "Security & Access",
+    biometricsToggle = "Biometrics & PIN",
+    biometricsDesc = "Require fingerprint or passcode on launch",
+    timeoutTitle = "Auto-lock Timeout",
+    timeoutDialogTitle = "Time before auto-lock",
+    timeoutInstant = "Immediately",
+    timeout1Min = "After 1 minute",
+    timeout5Min = "After 5 minutes",
+    timeout15Min = "After 15 minutes",
+    showBalanceOnLaunchTitle = "Keep balance visible on launch",
+    showBalanceOnLaunchDesc = "Eye icon stays open by default (balance shown)",
+
+    recurringSection = "Subscriptions & Recurring",
+    recurringDesc = "Automatic recurring expenses (Spotify, rent, salary)",
+    noRecurringPrompt = "No recurring payments. Tap + to add subscription.",
+    newRecurringTitle = "New Recurring Payment",
+    intervalDaysPrompt = "Repeat Interval",
+    customDaysLabel = "Custom interval (days)",
+    daysUnit = "days",
+    nextDuePrefix = "Next:",
+    autoPaymentSuffix = "(Auto-pay)",
+
+    backupSection = "Encrypted Backup (AES-256)",
+    autoBackupToggle = "Daily Auto-Backup",
+    autoBackupDesc = "Automatically create encrypted backup every 24 hours",
+    lastBackupPrefix = "Last backup:",
+    createBackupBtn = "Create",
+    restoreBackupBtn = "Restore",
+    backupCreatedSuccess = "Backup successfully created",
+    backupRestoreSuccess = "Successfully restored transactions:",
+    noBackupsFound = "No backup files found",
+
+    dataSection = "Data Management",
+    clearDataTitle = "Clear All Data",
+    clearDataDesc = "Delete all transactions and reset balance",
+    clearDataConfirmTitle = "Delete all transactions?",
+    clearDataConfirmMessage = "This action will permanently delete all transaction history. We recommend creating a backup first.",
+    clearDataConfirmBtn = "Clear",
+
+    aboutSection = "About FinVault",
+    appVersion = "Version 1.3.0 Pro",
+    aboutSecurityInfo = "FinVault stores all financial data locally on your device with AES-256 encryption and biometric authentication."
+)
+
+object LocalizedStrings {
+    fun get(language: AppLanguage): AppStrings {
+        return when (language) {
+            AppLanguage.RUSSIAN -> RussianStrings
+            AppLanguage.KAZAKH -> KazakhStrings
+            AppLanguage.ENGLISH -> EnglishStrings
+            AppLanguage.SYSTEM -> {
+                val sysLang = Locale.getDefault().language.lowercase()
+                when {
+                    sysLang.startsWith("kk") -> KazakhStrings
+                    sysLang.startsWith("en") -> EnglishStrings
+                    else -> RussianStrings
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun currentAppStrings(): AppStrings {
+    val lang by AppPreferencesManager.language.collectAsState()
+    return LocalizedStrings.get(lang)
+}
